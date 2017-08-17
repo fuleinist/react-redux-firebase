@@ -73,7 +73,7 @@ export default class Home extends Component {
     }
     // return this.setState({ error: 'Delete example requires using populate' })
     // only works if populated
-    if (todos[id].owner !== auth.uid) {
+    if ((todos[id].owner.uid && todos[id].owner.uid !== auth.uid) || (!todos[id].owner.uid && todos[id].owner !== auth.uid)) {
       return this.setState({ error: 'You must own todo to delete' })
     }
     return firebase.remove(`/todos/${id}`).catch(err => {
